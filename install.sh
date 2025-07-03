@@ -18,7 +18,7 @@ case "$SERVER" in
     apache|nginx|lighttpd)
         ;;
     *)
-        echo "Error: Invalid server \"$SERVER\". Choose: lighttpd."
+        echo "Error: Invalid server \"$SERVER\". Choose: lighttpd"
         exit 1
         ;;
 esac
@@ -28,9 +28,16 @@ if [ -d "$SCRIPT_DIR" ]; then
         [ -f "$file" ] && chmod +x "$file"
     done
 else
-    echo "[!] \"$SCRIPT_DIR\" directory not found." >&2
+    echo "[!] \"$SCRIPT_DIR\" directory not found" >&2
     exit 1
 fi
 
 sudo "$SCRIPT_DIR/install-config.sh" "$SERVER"
 sudo "$SCRIPT_DIR/install-github-sync.sh" "$GITHUB_USER"
+
+echo "[*] Performing initial GitHub sync..."
+if sudo "/usr/local/bin/github-sync.sh"; then
+    echo "[$] Initial sync successful"
+else
+    echo "[!] Initial sync failed" >&2
+fi
