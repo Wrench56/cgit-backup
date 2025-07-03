@@ -76,4 +76,8 @@ install_package() {
     fi
 }
 
+echo "[*] Installing required dependencies..."
+install_package curl
+install_package git
 install_package jq
+echo "[$] Done!"
