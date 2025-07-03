@@ -32,6 +32,7 @@ else
     exit 1
 fi
 
+sudo "$SCRIPT_DIR/install-packages.sh"
 sudo "$SCRIPT_DIR/install-config.sh" "$SERVER"
 sudo "$SCRIPT_DIR/install-github-sync.sh" "$GITHUB_USER"
 
