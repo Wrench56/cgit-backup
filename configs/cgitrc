@@ -1,0 +1,4 @@
+scan-path=/var/lib/git
+enable-http-clone=1
+enable-index-links=1
+virtual-root=cgit.cgi
