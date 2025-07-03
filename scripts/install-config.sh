@@ -36,4 +36,8 @@ case "$1" in
         ;;
 esac
 
+if [ ! -f /etc/cgitrc ]; then
+    echo "[*] /etc/cgitrc not found, copying config..."
+    sudo cp configs/cgirc /etc/cgitrc
+fi
 printf "[$] Done!\n"
