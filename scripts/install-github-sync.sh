@@ -22,11 +22,6 @@ if [ -z "$GITHUB_USER" ]; then
     exit 1
 fi
 
-if ! install_jq; then
-    echo "[!] Try installing \"jq\" manually"
-    exit 1
-fi
-
 printf "[*] Installing GitHub sync script for user: %s\n" "$GITHUB_USER"
 
 install -d -o root -g root -m 755 "$REPO_DIR"
