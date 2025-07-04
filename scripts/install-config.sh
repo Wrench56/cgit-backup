@@ -38,6 +38,6 @@ esac
 
 if [ ! -f /etc/cgitrc ]; then
     echo "[*] /etc/cgitrc not found, copying config..."
-    sudo cp configs/cgirc /etc/cgitrc
+    sudo cp configs/cgitrc /etc/cgitrc
 fi
 printf "[$] Done!\n"
