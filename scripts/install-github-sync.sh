@@ -7,7 +7,6 @@
 set -e
 
 GITHUB_USER="$1"
-CRON_FILE="/etc/cron.d/github-sync"
 SYNC_SCRIPT="/usr/local/bin/github-sync.sh"
 REPO_DIR="/var/lib/git"
 LOGFILE="/var/log/github-sync.log"
@@ -39,10 +38,6 @@ if ! grep -Fxq "$CRONTAB_LINE" /etc/crontab; then
 else
     echo "[*] Cron job already present in /etc/crontab"
 fi
-
-
-chown root:root "$CRON_FILE"
-chmod 644 "$CRON_FILE"
 
 cat <<EOF > "$SYNC_SCRIPT"
 #!/bin/sh
