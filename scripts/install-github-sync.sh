@@ -22,17 +22,24 @@ if [ -z "$GITHUB_USER" ]; then
     exit 1
 fi
 
-printf "[*] Installing GitHub sync script for user: %s\n" "$GITHUB_USER"
-
+echo "[*] Installing GitHub sync script for user: $GITHUB_USER"
 install -d -o root -g root -m 755 "$REPO_DIR"
 touch "$LOGFILE"
 chmod 644 "$LOGFILE"
 
-cat <<EOF > "$CRON_FILE"
-# Part of https://github.com/Wrench56/cgit-backup
-0 0 * * * root "$SYNC_SCRIPT"
+CRONTAB_LINE="0 0 * * * root $SYNC_SCRIPT"
+if ! grep -Fxq "$CRONTAB_LINE" /etc/crontab; then
+    {
+        echo ""
+        echo "# Part of https://github.com/Wrench56/cgit-backup"
+        echo "$CRONTAB_LINE"
+        echo ""
+    } >> "/etc/crontab"
+    echo "[*] Appended cron job to /etc/crontab"
+else
+    echo "[*] Cron job already present in /etc/crontab"
+fi
 
-EOF
 
 chown root:root "$CRON_FILE"
 chmod 644 "$CRON_FILE"
@@ -86,5 +93,5 @@ EOF
 chmod 755 "$SYNC_SCRIPT"
 chown root:root "$SYNC_SCRIPT"
 
-printf "[*] Installed sync script to: %s\n" "$SYNC_SCRIPT"
-printf "[$] Done.\n"
+echo "[*] Installed sync script to: $SYNC_SCRIPT"
+echo "[$] Done."
