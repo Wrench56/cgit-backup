@@ -35,6 +35,7 @@ if ! grep -Fxq "$CRONTAB_LINE" /etc/crontab; then
         echo ""
     } >> "/etc/crontab"
     echo "[*] Appended cron job to /etc/crontab"
+    crontab /etc/crontab
 else
     echo "[*] Cron job already present in /etc/crontab"
 fi
